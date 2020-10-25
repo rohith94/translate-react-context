@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import UserCreate from "./components/UserCreate";
+import ColourContext from "./contexts/ColourContext";
+import LanguageContext from "./contexts/LanguageContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = { language: "english" };
+
+  onLanguageChange = (language) => {
+    this.setState({ language: language });
+  };
+
+  render() {
+    return (
+      <div className="ui container">
+        <div>
+          Select language :
+          <i
+            className="flag in"
+            onClick={() => this.onLanguageChange("hindi")}
+          />
+          <i
+            className="flag us"
+            onClick={() => this.onLanguageChange("english")}
+          />
+          <ColourContext.Provider value="red">
+            <LanguageContext.Provider value={this.state.language}>
+              <UserCreate />
+            </LanguageContext.Provider>
+          </ColourContext.Provider>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
